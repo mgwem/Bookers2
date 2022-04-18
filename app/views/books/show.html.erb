@@ -9,7 +9,8 @@
       <table class="table">
         <tbody>
           <tr>
-            <td>
+            <% if @bookone.user == current_user %>
+              <td>
               <%= link_to user_path(@bookone.user_id) do %>
                 <%= image_tag @bookone.user.get_profile_image(80,80) %>
               <% end %>
@@ -17,13 +18,36 @@
               <%= link_to user_path(@bookone.user_id) do %>
                 <%= @user.name %>
               <% end %>
-            </td>
-            <td>
-              <%= link_to book_path(@bookone) do %>
-                <%= @bookone.title %>
-              <% end %>
-            </td>
-            <td><%= @bookone.body %></td>
+              </td>
+              <td>
+                <%= link_to book_path(@bookone) do %>
+                  <%= @bookone.title %>
+                <% end %>
+              </td>
+              <td><%= @bookone.body %></td>
+              <td>
+                <%= link_to "Edit", edit_book_path(@bookone), class:'btn btn-sm btn-success' %>
+              </td>
+              <td>
+                <%= link_to "Destroy", book_path(@bookone), method: :delete, "data-confirm"=>"本当に消しますか?", class:'btn btn-sm btn-danger' %>
+              </td>
+            <% else %>
+              <td>
+                <%= link_to user_path(@bookone.user_id) do %>
+                  <%= image_tag @bookone.user.get_profile_image(80,80) %>
+                <% end %>
+                <br />
+                <%= link_to user_path(@bookone.user_id) do %>
+                  <%= @user.name %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to book_path(@bookone) do %>
+                  <%= @bookone.title %>
+                <% end %>
+              </td>
+              <td><%= @bookone.body %></td>
+          <% end %>
           </tr>
         </tbody>
       </table>
